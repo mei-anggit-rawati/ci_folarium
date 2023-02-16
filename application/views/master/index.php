@@ -1,0 +1,251 @@
+<div class="page-header">
+    <h4 class="page-title">Dashboard</h4>
+    <div class="btn-group btn-group-page-header ml-auto">
+        <button type="button" class="btn btn-light btn-round btn-page-header-dropdown dropdown-toggle"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div class="dropdown-menu">
+            <div class="arrow"></div>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body ">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-primary bubble-shadow-small">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                            <p class="card-category">Visitors</p>
+                            <h4 class="card-title">1,294</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-info bubble-shadow-small">
+                            <i class="far fa-newspaper"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                            <p class="card-category">Subscribers</p>
+                            <h4 class="card-title">1303</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-success bubble-shadow-small">
+                            <i class="far fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                            <p class="card-category">Sales</p>
+                            <h4 class="card-title">$ 1,345</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-icon">
+                        <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                            <i class="far fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="col col-stats ml-3 ml-sm-0">
+                        <div class="numbers">
+                            <p class="card-category">Order</p>
+                            <h4 class="card-title">576</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <div class="card-title">User Statistics</div>
+                    <div class="card-tools">
+                        <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                            <span class="btn-label">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                            Export
+                        </a>
+                        <a href="#" class="btn btn-info btn-border btn-round btn-sm">
+                            <span class="btn-label">
+                                <i class="fa fa-print"></i>
+                            </span>
+                            Print
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="min-height: 375px">
+                    <canvas id="statisticsChart"></canvas>
+                </div>
+                <div id="myChartLegend"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-card-no-pd">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-head-row">
+                    <h4 class="card-title">Users Geolocation</h4>
+                    <div class="card-tools">
+                        <button class="btn btn-icon btn-link btn-primary btn-xs"><span
+                                class="fa fa-angle-down"></span></button>
+                        <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span
+                                class="fa fa-sync-alt"></span></button>
+                        <button class="btn btn-icon btn-link btn-primary btn-xs"><span
+                                class="fa fa-times"></span></button>
+                    </div>
+                </div>
+                <p class="card-category">
+                    Map of the distribution of users around the world</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive table-hover table-sales">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="flag">
+                                                <img src="<?php echo base_url(); ?>assets/img/flags/id.png"
+                                                    alt="indonesia">
+                                            </div>
+                                        </td>
+                                        <td>Indonesia</td>
+                                        <td class="text-right">
+                                            2.320
+                                        </td>
+                                        <td class="text-right">
+                                            42.18%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="flag">
+                                                <img src="<?php echo base_url(); ?>assets/img/flags/us.png"
+                                                    alt="united states">
+                                            </div>
+                                        </td>
+                                        <td>USA</td>
+                                        <td class="text-right">
+                                            240
+                                        </td>
+                                        <td class="text-right">
+                                            4.36%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="flag">
+                                                <img src="<?php echo base_url(); ?>assets/img/flags/au.png"
+                                                    alt="australia">
+                                            </div>
+                                        </td>
+                                        <td>Australia</td>
+                                        <td class="text-right">
+                                            119
+                                        </td>
+                                        <td class="text-right">
+                                            2.16%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="flag">
+                                                <img src="<?php echo base_url(); ?>assets/img/flags/ru.png"
+                                                    alt="russia">
+                                            </div>
+                                        </td>
+                                        <td>Russia</td>
+                                        <td class="text-right">
+                                            1.081
+                                        </td>
+                                        <td class="text-right">
+                                            19.65%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="flag">
+                                                <img src="<?php echo base_url(); ?>assets/img/flags/cn.png" alt="china">
+                                            </div>
+                                        </td>
+                                        <td>China</td>
+                                        <td class="text-right">
+                                            1.100
+                                        </td>
+                                        <td class="text-right">
+                                            20%
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="flag">
+                                                <img src="<?php echo base_url(); ?>assets/img/flags/br.png"
+                                                    alt="brazil">
+                                            </div>
+                                        </td>
+                                        <td>Brasil</td>
+                                        <td class="text-right">
+                                            640
+                                        </td>
+                                        <td class="text-right">
+                                            11.63%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
