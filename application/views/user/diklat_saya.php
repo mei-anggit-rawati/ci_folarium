@@ -61,7 +61,7 @@
                                     <?php echo $diklat->angkatan ?>
                                 </td>
                                 <td align="center">
-                                    <?php echo $diklat->mulai .' s/d '. $diklat->sampai ?>
+                                    <?php echo tgl($diklat->mulai) .' s/d '. tgl($diklat->sampai) ?>
                                 </td>
                                 <td align="center">
                                     <?php echo $diklat->tempat ?>

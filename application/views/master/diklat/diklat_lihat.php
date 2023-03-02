@@ -17,7 +17,18 @@
 
 <?php
 foreach ($lihat_diklat as $diklat) :
+    if ($diklat->status == 0) {
+        $status = '<span class="badge badge-count badge-default">Belum Mulai</span>';
+    } elseif ($diklat->status == 1) {
+        $status = '<span class="badge badge-count badge-success">Dalam Proses</span>';
+    } else {
+        $status = '<span class="badge badge-count badge-danger">Sudah Selesai</span>';
+    }
 endforeach; 
+
+foreach ($jml_pendaftar as $jml_pendaftar) :
+endforeach; 
+
 ?>
 
 <div class="row">
@@ -42,15 +53,19 @@ endforeach;
                             <h5><?php echo $diklat->sk; ?></h5>
                         </div>
                         <div class="form-group form-group-default">
-                            <label>Nomor Sertifikat : </label><br>
-                            <h5><?php echo $diklat->no_sertifikat; ?></h5>
+                            <label>Nomor Sertifikat : </label>
+                            <h5><?php echo $diklat->no_sertifikat; ?></h5><br>
+                            <label>Tanggal Sertifikat : </label>
+                            <h5><?php echo tgl($diklat->tgl_sertif); ?></h5><br>
+                            <label>Penandatangan Sertifikat : </label>
+                            <h5><?php echo $diklat->nama_dir; ?> / NIP. <?php echo $diklat->nip_dir; ?></h5><br>
                         </div>
 
                     </div>
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Waktu Pelaksanaan : </label><br>
-                            <h5><?php echo $diklat->mulai; ?> s/d <?php echo $diklat->sampai; ?></h5>
+                            <h5><?php echo tgl($diklat->mulai); ?> s/d <?php echo tgl($diklat->sampai); ?></h5>
                         </div>
                         <div class="form-group form-group-default">
                             <label>Tempat Pelaksanaan </label><br>
@@ -58,8 +73,12 @@ endforeach;
                         </div>
                         <div class="form-group form-group-default">
                             <label>Jumlah Pendaftar / Kuota Pendaftaran : </label><br>
-                            <h5><?php echo 50; ?> / <?php echo 100; ?> orang</h5>
+                            <h5><?php echo $jml_pendaftar->jml_pendaftar; ?> orang</h5>
                         </div>
+                        <div class="form-group form-group-default">
+                                    <label>Status Diklat : </label><br>
+                                    <h5><?php echo $status; ?></h5>
+                                </div>
 
                     </div>
                 </div>
@@ -113,9 +132,10 @@ endforeach;
                     </table>
                 </div>
                 <div class="text-center mt-6 mb-6">
-                    <button class="btn btn-default">Kembali</button>
-                    <button class="btn btn-success daftar_diklat" data-diklatid="<?php echo $diklat->id ?>">Update
+                    <button class="btn btn-default" onclick="history.back()">Kembali</button>
+                    <button class="btn btn-success">Update
                         Diklat</button>
+                    <button class="btn btn-primary" data-toggle="modal" href="#modal_selesai">Ubah Status Diklat</button>
                 </div>
             </div>
         </div>
@@ -136,7 +156,7 @@ endforeach;
                         <div class="form-group">
                         <input type="hidden" class="form-control" name="kdiklat" value="<?php echo $_GET['kdiklat']?>">
                         <input type="hidden" class="form-control" name="tipe" value="<?php echo $_GET['tipe']?>">
-                            <label for="">Materi</label>
+                        <label for="">Materi</label>
                             <select class="form-control " name="materi" id="materi">
                             <option value="">-- Pilih Materi --</option>
                             <?php
@@ -146,6 +166,7 @@ endforeach;
                                         }
                                         ?>
                         </select>
+                            
 
                         </div>
                         <div class="form-group">
@@ -159,6 +180,64 @@ endforeach;
                                         }
                                         ?>
                         </select>
+                        </div>
+
+                    </div>
+                    <div class="card-action" align="center">
+                        <button type="submit" name="publish" id="tambah_tipe" class="btn btn-success">
+                            <i class="fa fa-save"></i>&nbsp;
+                            Simpan
+                        </button>
+                        <button class="btn btn-default">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_selesai">
+    <div class="modal-dialog">
+        <div class=" modal-content">
+            <div class="modal-header">
+                <h3>Ubah Status Diklat</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" id="">
+                <form method="POST" action="<?php echo base_url('Master/ubah_status_diklat');?>">
+                    <div class="card-body">
+                        <div class="form-group">
+                        <input type="hidden" class="form-control" name="kdiklat" value="<?php echo $_GET['kdiklat']?>">
+                        <input type="hidden" class="form-control" name="tipe" value="<?php echo $_GET['tipe']?>">
+                            <label for="">Status Diklat</label>
+                            <select id="" class="form-control col-md-11" name="status">
+                                    <?php
+                                    foreach (getStatusDiklat() as $status => $key) {
+                                        if ($diklat->status == $status) {
+                                            echo "<option value=\"$status\" selected>". $key."</option>";  
+                                        } else {
+                                            echo "<option value=\"$status\">". $key."</option>"; 
+                                        }
+                                              
+                                    }
+                                    ?>
+                                    </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tanggal Sertifikat</label>
+                            <input type="date" class="form-control" name="tgl_sertif" value="<?php echo $diklat->tgl_sertif?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Penandatangan Sertifikat</label>
+                            <input type="text" class="form-control" name="nama_dir" value="<?php echo $diklat->nama_dir?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="">NIP Penandatangan Sertifikat</label>
+                            <input type="text" class="form-control" name="nip_dir" value="<?php echo $diklat->nip_dir?>">
                         </div>
 
                     </div>

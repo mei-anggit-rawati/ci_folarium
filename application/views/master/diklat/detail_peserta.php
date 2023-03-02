@@ -1,5 +1,8 @@
+<?php
+ini_set('display_errors', 0);
+?>
 <div class="page-header">
-    <h4 class="page-title">Profil Saya</h4>
+    <h4 class="page-title">Profil Peserta Diklat</h4>
     <ul class="breadcrumbs">
         <li class="nav-home">
             <a href="<?php echo base_url(); ?>Master">
@@ -10,12 +13,16 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li class="nav-item">
-            <a href="#">Profil Saya</a>
+            <a href="#">Profil Peserta Diklat</a>
         </li>
     </ul>
 </div>
 
 <?php
+$arr_jk = array(1=>"Pria",2=>"Wanita");
+$arr_agama = array(1=>"Islam",2=>"Kristen",3=>"Budha",4=>"Hindu",5=>"Konghucu");
+$arr_nikah = array(1=>"Sudah Menikah",2=>"Belum Menikah");
+$arr_pendidikan = array(1=>"SD",2=>"SMP",3=>"SLTA SEDERAJAT",4=>"D3",5=>"S1",6=>"S2",7=>"S3");
 foreach ($profil as $profil) :
 endforeach; 
 ?>
@@ -73,7 +80,11 @@ endforeach;
                                 </div>
                                 <div class="form-group form-group-default">
                                     <label>Pendidikan Terakhir</label><br>
-                                    <h5><?php echo $profil->pendidikan; ?></h5>
+                                    <h5><?php echo $arr_pendidikan[$profil->pend_terakhir]; ?></h5>
+                                </div>
+                                <div class="form-group form-group-default">
+                                    <label>Kursus</label><br>
+                                    <h5><?php echo $profil->kursus; ?></h5>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -81,22 +92,19 @@ endforeach;
                                     <div class="col-md-6">
                                         <div class="form-group form-group-default">
                                             <label>Jenis Kelamin</label><br>
-                                            <h5><?php echo $profil->fsk_tb; ?> Cm</h5>
+                                            <h5><?php echo $arr_jk[$profil->fsk_jk]; ?></h5>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-group-default">
                                             <label>Agama / Kepercayaan</label><br>
-                                            <h5><?php echo $profil->fsk_bb; ?> Kg</h5>
+                                            <h5><?php echo $arr_agama[$profil->agama]; ?></h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group form-group-default">
                                     <label>Status Menikah</label>
-                                    <select class="form-control" id="gender">
-                                        <option>Menikah</option>
-                                        <option>Female</option>
-                                    </select>
+                                    <h5><?php echo $arr_nikah[$profil->status_nikah]; ?></h5>
                                 </div>
                                 <div class="form-group form-group-default">
                                     <label>Nama Istri/Suami</label><br>
@@ -113,6 +121,10 @@ endforeach;
                                 <div class="form-group form-group-default">
                                     <label>Pekerjaan Ibu</label><br>
                                     <h5><?php echo $profil->job_ibu; ?></h5>
+                                </div>
+                                <div class="form-group form-group-default">
+                                    <label>Jumlah Saudara/Anak</label><br>
+                                    <h5><?php echo $profil->jml_sdr_ank; ?></h5>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-4">
@@ -136,7 +148,6 @@ endforeach;
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -171,14 +182,38 @@ endforeach;
                 </div>
 
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a
-                        copy. The copy warned the Little Blind Text, that where it came from it would have been
-                        rewritten a thousand times and everything that was left from its origin would be the word "and"
-                        and the Little Blind Text should turn around and return to its own, safe country.</p>
-
-                    <p> But nothing the copy said could convince her and so it didn’t take long until a few insidious
-                        Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
-                        agency, where they abused her for their</p>
+                <div class="table-responsive">
+                    <table id="basic-datatables" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Jenis Berkas</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 0;
+                            $arr_jen = array(1=>"Pas Foto Terbaru",2=>"Scan KTP",3=>"Scan Ijazah Asli",4=>"Scan Transkip Asli",5=>"Scan Surat Pengantar");
+                            foreach ($berkas as $berkas) :
+                                $jenis = $berkas->jenis;
+                            $no++;
+                            ?>
+                            <tr>
+                                <td width="50" align="center">
+                                    <?php echo $no; ?>
+                                </td>
+                                <td>
+                                    <?php echo $arr_jen[$jenis]  ?>
+                                </td>
+                                <td>
+                                <a href="<?php echo base_url(); ?>uploads/berkas_user/<?php echo $berkas->file; ?>" target="_blank" class="btn btn-primary btn-round" title="Hapus"><i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
                 </div>
             </div>
 
@@ -190,20 +225,18 @@ endforeach;
             <div class="card-header" style="background-image: url('../assets/img/blogpost.jpg')">
                 <div class="profile-picture">
                     <div class="avatar avatar-xl">
-                        <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                        <img src="<?php echo base_url(); ?>uploads/foto_profil/<?php echo $profil->foto_profil; ?>" alt="..." class="avatar-img rounded-circle">
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="user-profile text-center">
-                    <div class="name"><?php echo $_SESSION['nama'] ?></div>
-                    <div class="job"><?php echo $_SESSION['email'] ?></div>
+                    <div class="name"><?php echo $profil->nama_lengkap ?></div>
+                    <div class="job"><?php echo $profil->jabatan ?></div>
                     <div class="view-profile">
-                        <a href="#" class="btn btn-secondary btn-block">Ubah Foto Profil</a>
+                        <a onclick="history.back()" class="btn btn-default btn-block">Kembali</a>
                     </div>
-                    <div class="text-center mt-3 mb-3">
-                        <button class="btn btn-success btn-block">Simpan Profil</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>

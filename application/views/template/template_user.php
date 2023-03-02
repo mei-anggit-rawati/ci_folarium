@@ -33,7 +33,7 @@
 
     <body>
         <div class="wrapper">
-            <div class="main-header" data-background-color="blue">
+            <div class="main-header" data-background-color="green">
                 <div class="logo-header">
                     <a href="index.html" class="logo">
                         <h3 style="color:white; font-weight:bold; padding-top:15px">PKTJ TEGAL</h3>
@@ -61,16 +61,27 @@
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..."
-                                            class="avatar-img rounded-circle">
+                                    <?php
+                                if ($_SESSION['foto_profil'] == '') { ?>
+                                    <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..." class="avatar-img rounded-circle">
+                                <?php } else { ?>
+                                    <img src="<?php echo base_url(); ?>uploads/foto_profil/<?php echo $_SESSION['foto_profil']; ?>" alt="..."
+                                    class="avatar-img rounded-circle">
+                                <?php } ?>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
                                     <li>
                                         <div class="user-box">
-                                            <div class="avatar-lg"><img
-                                                    src="<?php echo base_url(); ?>assets/img/avatar.png"
-                                                    alt="image profile" class="avatar-img rounded"></div>
+                                            <div class="avatar-lg">
+                                            <?php
+                                if ($_SESSION['foto_profil'] == '') { ?>
+                                    <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..." class="avatar-img rounded-circle">
+                                <?php } else { ?>
+                                    <img src="<?php echo base_url(); ?>uploads/foto_profil/<?php echo $_SESSION['foto_profil']; ?>" alt="..."
+                                    class="avatar-img rounded-circle">
+                                <?php } ?>
+                                                </div>
                                             <div class="u-text">
                                                 <h4><?php echo $_SESSION['nama'] ?></h4>
                                                 <p class="text-muted"><?php echo $_SESSION['nik'] ?></p>
@@ -99,8 +110,13 @@
                     <div class="sidebar-content">
                         <div class="user">
                             <div class="avatar-sm float-left mr-2">
-                                <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..."
+                                <?php
+                                if ($_SESSION['foto_profil'] == '') { ?>
+                                    <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..." class="avatar-img rounded-circle">
+                                <?php } else { ?>
+                                    <img src="<?php echo base_url(); ?>uploads/foto_profil/<?php echo $_SESSION['foto_profil']; ?>" alt="..."
                                     class="avatar-img rounded-circle">
+                                <?php } ?>
                             </div>
                             <div class="info">
                                 <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -115,13 +131,8 @@
                                 <div class="collapse in" id="collapseExample">
                                     <ul class="nav">
                                         <li>
-                                            <a href="#profile">
-                                                <span class="link-collapse">My Profile</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#edit">
-                                                <span class="link-collapse">Edit Profile</span>
+                                            <a href="<?php echo base_url(); ?>User/profil">
+                                                <span class="link-collapse">Profil Saya</span>
                                             </a>
                                         </li>
                                     </ul>

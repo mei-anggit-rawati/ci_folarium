@@ -11,11 +11,12 @@ class M_Login extends CI_Model
     function query_validasi_password($username,$password){
     	//$result = $this->db->query("SELECT * FROM table_user WHERE user_email='$email' AND user_password=SHA2('$password', 224) LIMIT 1");
         $result = $this->db->query("SELECT A.id, A.nik, A.nama, A.level, A.email, A.kode_wilayah, A.kode_instansi, A.allow, A.pass,
-         B.nama as nm_level, C.nama as nm_instansi, D.daerah as nm_daerah, D.provinsi as nm_provinsi
+         B.nama as nm_level, C.nama as nm_instansi, D.daerah as nm_daerah, D.provinsi as nm_provinsi, E.foto_profil
              FROM tb_user AS A
              LEFT JOIN tb_hak_akses AS B ON A.level=B.id
              LEFT JOIN tb_instansi AS C ON A.kode_instansi=B.id
              LEFT JOIN tb_wilayah AS D ON A.kode_wilayah=D.id
+             LEFT JOIN tb_riwayat_hidup AS E ON A.nik=E.nik
              WHERE  A.nik = '$username' OR A.user = '$username' ");
              $dt = $result->row();
 					if ($dt->pass == $password) {

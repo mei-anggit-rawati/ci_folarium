@@ -53,6 +53,7 @@
                                 <th>Angkatan</th>
                                 <th>Waktu Pelaksanaan</th>
                                 <th>Tempat Pelaksanaan</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -61,13 +62,20 @@
                             $no = 0;
                             foreach ($diklat as $diklat) :
                             $no++;
+                            if ($diklat->status == 0) {
+                                $statusd = '<span class="badge badge-count badge-default">Belum Mulai</span>';
+                            } elseif ($diklat->status == 1) {
+                                $statusd = '<span class="badge badge-count badge-success">Dalam Proses</span>';
+                            } else {
+                                $statusd = '<span class="badge badge-count badge-danger">Sudah Selesai</span>';
+                            }
                             ?>
                             <tr id="<?php echo $diklat->id; ?>">
                                 <td align="center">
                                     <?php echo $no; ?>
                                 </td>
                                 <td>
-                                    <?php echo $diklat->nama_diklat ?>
+                                    <?php echo $diklat->nama ?>
                                 </td>
                                 <td align="center">
                                     <?php echo $diklat->angkatan ?>
@@ -77,6 +85,9 @@
                                 </td>
                                 <td align="center">
                                     <?php echo $diklat->tempat ?>
+                                </td>
+                                <td align="center">
+                                    <?php echo $statusd ?>
                                 </td>
                                 <td>
                                     <div class="form-button-action btn-group-horizontal">

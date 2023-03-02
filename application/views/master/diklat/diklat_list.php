@@ -62,6 +62,7 @@
                                 <th>Angkatan</th>
                                 <th>Waktu Pelaksanaan</th>
                                 <th>Tempat Pelaksanaan</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -70,6 +71,13 @@
                             $no = 0;
                             foreach ($diklat as $diklat) :
                             $no++;
+                            if ($diklat->status == 0) {
+                                $statusd = '<span class="badge badge-count badge-default">Belum Mulai</span>';
+                            } elseif ($diklat->status == 1) {
+                                $statusd = '<span class="badge badge-count badge-success">Dalam Proses</span>';
+                            } else {
+                                $statusd = '<span class="badge badge-count badge-danger">Sudah Selesai</span>';
+                            }
                             ?>
                             <tr id="<?php echo $diklat->id; ?>">
                                 <td align="center">
@@ -82,10 +90,13 @@
                                     <?php echo $diklat->angkatan ?>
                                 </td>
                                 <td align="center">
-                                    <?php echo $diklat->mulai .' s/d '. $diklat->sampai ?>
+                                    <?php echo tgl($diklat->mulai) .' s/d '. tgl($diklat->sampai) ?>
                                 </td>
                                 <td align="center">
                                     <?php echo $diklat->tempat ?>
+                                </td>
+                                <td align="center">
+                                    <?php echo $statusd ?>
                                 </td>
                                 <td>
                                     <div class="form-group">
@@ -102,8 +113,6 @@
                                                     <a class="dropdown-item"
                                                         href="<?php echo base_url(); ?>Master/peserta_diklat?id=<?php echo $diklat->id ?>">Peserta
                                                         Diklat</a>
-                                                    <div role="separator" class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Ranking Ujian</a>
                                                     <div role="separator" class="dropdown-divider"></div>
                                                     <button class="dropdown-item hapus_diklat">Hapus Diklat</button>
                                                 </div>

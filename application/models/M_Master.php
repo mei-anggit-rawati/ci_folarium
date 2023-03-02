@@ -93,10 +93,11 @@ class M_Master extends CI_Model
 
     function diklat_list($tahun)
     {
-        $query = $this->db->query("SELECT A.id, A.tipe, B.nama as nama_diklat, A.angkatan, A.mulai, A.sampai, A.tempat 
+        $query = $this->db->query("SELECT A.id, A.tipe, B.nama as nama_diklat, A.angkatan, A.mulai, A.sampai, A.tempat, A.status 
         FROM tb_diklat AS A
         LEFT JOIN tb_kode_diklat AS B ON A.tipe=B.tipe
-        WHERE tahun = '$tahun' AND `status` = 1
+        WHERE A.tahun = '$tahun'
+        ORDER BY A.id DESC 
         ");
         return $query->result();
     }
@@ -107,6 +108,14 @@ class M_Master extends CI_Model
         FROM tb_diklat AS A
         LEFT JOIN tb_kode_diklat AS B ON A.tipe=B.tipe
         WHERE A.id = '$id'
+        ");
+        return $query->result();
+    }
+    function jml_pendaftar($id)
+    {
+        $query = $this->db->query("SELECT COUNT(id) as jml_pendaftar 
+        FROM tb_peserta_diklat 
+        WHERE id_diklat = '$id'
         ");
         return $query->result();
     }
@@ -138,8 +147,8 @@ class M_Master extends CI_Model
         function profil($id)
     {
         $query = $this->db->query("SELECT 
-        A.nik, A.nama_lengkap, A.tempat_lahir, A.tgl_lahir, A.no_telp, A.alamat_rumah, E.nama as agama, A.status_nikah, 
-        A.nm_sutri, A.job_sutri, A.nm_ibu, A.job_ibu, A.fsk_tb, a.fsk_bb, A.fsk_goldar, A.nip, A.pangkat_gol, A.jabatan, 
+        A.nik, A.nama_lengkap, A.tempat_lahir, A.tgl_lahir, A.no_telp, A.alamat_rumah, A.status_nikah, 
+        A.nm_sutri, A.job_sutri, A.nm_ibu, A.agama, A.pend_terakhir,A.kursus, A.jml_sdr_ank, A.foto_profil, A.job_ibu, A.fsk_jk, A.fsk_tb, a.fsk_bb, A.fsk_goldar, A.nip, A.pangkat_gol, A.jabatan, 
         A.instansi, A.alamat_instansi, B.nama as pendidikan, D.email
         FROM tb_riwayat_hidup AS A 
         LEFT JOIN tb_pendidikan AS B ON A.pend_terakhir=B.id
@@ -196,12 +205,6 @@ class M_Master extends CI_Model
 
     function tipe_tambah($tipe, $nama, $singkat)
     {
-        // $sql = $this->db->query("SELECT tipe FROM tb_kode_diklat ORDER BY id DESC LIMIT 1")->result();
-        // foreach ($sql as $key) {
-        //     $tipe = $key->tipe;
-        // }
-        // $tipe = 2;
-
         $insert = 'INSERT INTO `tb_kode_diklat`(`tipe`, `nama`, `singkat`) 
             VALUES (
             "' . $tipe . '",
@@ -209,6 +212,16 @@ class M_Master extends CI_Model
             "' . $singkat . '"
             )';
         return $this->db->query($insert);
+    }
+
+    function tipe_edit($id, $tipe, $nama, $singkat)
+    {
+        $update = 'UPDATE `tb_kode_diklat` SET 
+        `tipe` = "' . $tipe . '",
+        `nama` = "' . $nama . '",
+        `singkat` = "' . $singkat . '"
+        WHERE id =  "' . $id . '"';
+        return $this->db->query($update);
     }
 
         function hapus_tipe($id)
@@ -249,8 +262,282 @@ class M_Master extends CI_Model
         return $this->db->query($insert);
     }
 
+    function ubah_status_diklat($status, $tgl_sertif, $nama_dir, $nip_dir, $tipe, $kdiklat)
+    {
+        $update = 'UPDATE `tb_diklat` SET 
+        `tgl_sertif` = "' . $tgl_sertif . '",
+        `nama_dir` = "' . $nama_dir . '",
+        `nip_dir` = "' . $nip_dir . '",
+        `status` = "' . $status . '"
+        WHERE id =  "' . $kdiklat . '"';
+        return $this->db->query($update);
+    }
+
     function hapus_materi_diklat($id)
     {
         $this->db->delete('tb_materi_diklat', ['id' => $id]);
     }
+
+    function wilayah_tambah($daerah, $provinsi)
+    {
+
+        $insert = 'INSERT INTO `tb_wilayah`(`provinsi`, `daerah`) 
+            VALUES (
+            "' . $provinsi . '",
+            "' . $daerah . '"
+            )';
+        return $this->db->query($insert);
+    }
+    function instansi_tambah($instansi)
+    {
+
+        $insert = 'INSERT INTO `tb_instansi`(`nama`) 
+            VALUES (
+            "' . $instansi . '"
+            )';
+        return $this->db->query($insert);
+    }
+
+    function rilis_jadwal()
+    {
+        $query = $this->db->query("SELECT A.id, B.nama, A.file, A.tahun, A.tanggal
+        FROM info_jadwal AS A 
+        LEFT JOIN tb_kode_diklat AS B ON A.nama=B.tipe
+        WHERE A.flag=0");
+        return $query->result();
+    }
+    function hapus_file_jadwal($id)
+    {
+        $sql = $this->db->query("SELECT file FROM info_jadwal 
+        WHERE id = '$id' "); 
+        $sql_result = $sql->result();
+        foreach ($sql_result as $row) {
+            @unlink("./uploads/jadwal/".$row->file);
+        }
+
+        $this->db->delete('info_jadwal', ['id' => $id]);
+    }
+
+    function galeri()
+    {
+        $query = $this->db->query("SELECT * FROM info_galeri WHERE flag=0");
+        return $query->result();
+    }
+    function hapus_file_galeri($id)
+    {
+        $sql = $this->db->query("SELECT file FROM info_galeri 
+        WHERE id = '$id' "); 
+        $sql_result = $sql->result();
+        foreach ($sql_result as $row) {
+            @unlink("./uploads/galeri/".$row->file);
+        }
+
+        $this->db->delete('info_galeri', ['id' => $id]);
+    }
+
+    function sertif()
+    {
+        $query = $this->db->query("SELECT A.id, B.nama, A.file, A.tahun, A.tanggal
+        FROM info_sertif AS A 
+        LEFT JOIN tb_kode_diklat AS B ON A.nama=B.tipe
+        WHERE A.flag=0");
+        return $query->result();
+    }
+    function hapus_file_sertif($id)
+    {
+        $sql = $this->db->query("SELECT file FROM info_sertif 
+        WHERE id = '$id' "); 
+        $sql_result = $sql->result();
+        foreach ($sql_result as $row) {
+            @unlink("./uploads/sertifikat/".$row->file);
+        }
+
+        $this->db->delete('info_sertif', ['id' => $id]);
+    }
+    function alumni()
+    {
+        $query = $this->db->query("SELECT A.id, B.nama, A.nama as alumni, A.note
+        FROM info_alumni AS A 
+        LEFT JOIN tb_kode_diklat AS B ON A.diklat=B.tipe
+        WHERE A.flag=0");
+        return $query->result();
+    }
+    function alumni_tambah($tipe, $nama, $uraian)
+    {
+
+        $insert = 'INSERT INTO `info_alumni`(`diklat`, `nama`, `note`) 
+            VALUES (
+            "' . $tipe . '",
+            "' . $nama . '",
+            "' . $uraian . '"
+            )';
+        return $this->db->query($insert);
+    }
+    function hapus_kata_alumni($id)
+    {
+        $this->db->delete('info_alumni', ['id' => $id]);
+    }
+
+    function tipe_edit_form($id)
+    {
+        $query = $this->db->query("SELECT * FROM tb_kode_diklat WHERE id='$id'");
+        return $query->result();
+    }
+
+    function tambah_mapel_diklat($tipe, $nama, $teori, $praktek)
+    {
+        $insert = 'INSERT INTO `tb_mapel`(`tipe`, `mapel`, `teori`, `praktek`) 
+            VALUES (
+            "' . $tipe . '",
+            "' . $nama . '",
+            "' . $teori . '",
+            "' . $praktek . '"
+            )';
+        return $this->db->query($insert);
+    }
+
+    function tambah_soal($matkul, $soal, $bobot, $opsi_a, $opsi_b, $opsi_c, $opsi_d, $opsi_e, $kunci)
+    {
+        $tgl_skrg = date('Y-m-d');
+        $insert = 'INSERT INTO `tb_soal`(`matkul_id`, `bobot`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, 
+        `opsi_d`, `opsi_e`, `jawaban`, `created_on`, `updated_on`) 
+            VALUES (
+            "' . $matkul . '",
+            "' . $bobot . '",
+            "' . $soal . '",
+            "' . $opsi_a . '",
+            "' . $opsi_b . '",
+            "' . $opsi_c . '",
+            "' . $opsi_d . '",
+            "' . $opsi_e . '",
+            "' . $kunci . '",
+            "' . $tgl_skrg . '",
+            "' . $tgl_skrg . '"
+            )';
+        return $this->db->query($insert);
+    }
+
+    function edit_dosen($id, $nik, $nip, $nama, $tempat_lhr, $tanggal_lhr, $email, $no_hp, $pangkat, $jabatan, $instansi, $a_instansi, $a_rumah)
+    {
+
+        $update = 'UPDATE `tb_dosen` SET 
+        `nik` = "' . $nik . '",
+        `nip` = "' . $nip . '",
+        `nama` = "' . $nama . '",
+        `tempat_lhr` = "' . $tempat_lhr . '",
+        `tanggal_lhr` = "' . $tanggal_lhr . '",
+        `email` = "' . $email . '",
+        `no_hp` = "' . $no_hp . '",
+        `pangkat` = "' . $pangkat . '",
+        `jabatan` = "' . $jabatan . '",
+        `instansi` = "' . $instansi . '",
+        `a_instansi` = "' . $a_instansi . '",
+        `a_rumah` = "' . $a_rumah . '"
+        WHERE id =  "' . $id . '"';
+        return $this->db->query($update);
+    }
+
+    function tambah_dosen($nik, $nip, $nama, $tempat_lhr, $tanggal_lhr, $email, $no_hp, $pangkat, $jabatan, $instansi, $a_instansi, $a_rumah)
+    {
+
+        $insert = 'INSERT INTO `tb_dosen`(`nama`, `nik`, `tempat_lhr`, `tanggal_lhr`, `email`, `no_hp`, `nip`, `pangkat`, `jabatan`, `instansi`, `a_instansi`, `a_rumah`) 
+            VALUES (
+            "' . $nama . '",
+            "' . $nik . '",
+            "' . $tempat_lhr . '",
+            "' . $tanggal_lhr . '",
+            "' . $email . '",
+            "' . $no_hp . '",
+            "' . $nip . '",
+            "' . $pangkat . '",
+            "' . $jabatan . '",
+            "' . $instansi . '",
+            "' . $a_instansi . '",
+            "' . $a_rumah . '"
+            )';
+        return $this->db->query($insert);
+    }
+    function hapus_dosen($id)
+    {
+        $this->db->delete('tb_dosen', ['id' => $id]);
+    }
+    function materi_detail($id)
+    {
+        $query = $this->db->query("SELECT * FROM tb_mapel WHERE id = '$id'");
+        return $query->result();
+    }
+
+    function edit_materi($id, $tipe, $mapel, $teori, $praktek)
+    {
+        $update = 'UPDATE `tb_mapel` SET 
+        `tipe` = "' . $tipe . '",
+        `mapel` = "' . $mapel . '",
+        `teori` = "' . $teori . '",
+        `praktek` = "' . $praktek . '"
+        WHERE id =  "' . $id . '"';
+        return $this->db->query($update);
+    }
+
+    function hapus_materi($id)
+    {
+        $this->db->delete('tb_mapel', ['id' => $id]);
+        $this->db->delete('tb_soal', ['matkul_id' => $id]);
+    }
+
+    function soal_detail($id)
+    {
+        $query = $this->db->query("SELECT * FROM tb_soal WHERE id = '$id'");
+        return $query->result();
+    }
+
+    function edit_soal($id, $soal, $bobot, $opsi_a, $opsi_b, $opsi_c, $opsi_d, $opsi_e, $kunci)
+    {
+        $update = 'UPDATE `tb_soal` SET 
+        `soal` = "' . $soal . '",
+        `bobot` = "' . $bobot . '",
+        `opsi_a` = "' . $opsi_a . '",
+        `opsi_b` = "' . $opsi_b . '",
+        `opsi_c` = "' . $opsi_c . '",
+        `opsi_d` = "' . $opsi_d . '",
+        `opsi_e` = "' . $opsi_e . '",
+        `jawaban` = "' . $kunci . '"
+        WHERE id =  "' . $id . '"';
+        return $this->db->query($update);
+    }
+
+    function hapus_soal($id)
+    {
+        $this->db->delete('tb_soal', ['id' => $id]);
+    }
+    function berkas($id)
+    {
+        $query = $this->db->query("SELECT * 
+        FROM tb_berkas AS A
+        LEFT JOIN tb_riwayat_hidup AS B ON A.nik=B.nik
+        WHERE B.id = '$id'
+        ");
+        return $query->result();
+    }
+
+    function daftar_nilai($id)
+    {
+        $query = $this->db->query("SELECT A.nik_peserta, B.nama_lengkap, MAX(D.nilai) AS pre, MAX(E.nilai) AS post, F.tempat, F.mulai, F.sampai, G.nama
+        FROM tb_peserta_diklat AS A
+        LEFT JOIN tb_riwayat_hidup AS B ON A.nik_peserta=B.nik
+        LEFT JOIN tb_jawaban_pre AS C ON A.id=C.id_peserta
+        
+        LEFT JOIN tb_jawaban_pre AS D ON A.id=D.id_peserta
+        LEFT JOIN tb_jawaban_post AS E ON A.id=E.id_peserta
+        
+        LEFT JOIN tb_diklat AS F ON A.id_diklat=F.id
+        LEFT JOIN tb_kode_diklat AS G ON F.tipe=G.tipe
+        
+        WHERE A.id_diklat = '$id'
+        GROUP BY A.id
+        ORDER BY B.nama_lengkap ASC
+        ");
+        return $query->result();
+    }
+
+
 }

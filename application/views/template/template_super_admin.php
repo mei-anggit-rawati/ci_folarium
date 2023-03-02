@@ -25,6 +25,7 @@
             }
         });
         </script>
+        
         <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/css/azzara.min.css'); ?>">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -156,7 +157,6 @@
                                                 <span class="sub-item">Materi</span>
                                             </a>
                                         </li>
-
                                     </ul>
                                 </div>
                             </li>
@@ -169,12 +169,12 @@
                                 <div class="collapse" id="dukungan">
                                     <ul class="nav nav-collapse">
                                         <li>
-                                            <a href="<?php echo base_url(); ?>Master/hak_akses">
+                                            <a href="<?php echo base_url(); ?>Master/wilayah">
                                                 <span class="sub-item">Wilayah</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="<?php echo base_url(); ?>Master/umana">
+                                            <a href="<?php echo base_url(); ?>Master/instansi">
                                                 <span class="sub-item">Instansi</span>
                                             </a>
                                         </li>
@@ -210,6 +210,37 @@
                                     </ul>
                                 </div>
                             </li> -->
+                            <li class="nav-item">
+                                <a data-toggle="collapse" href="#portal">
+                                    <i class="fa fa-cogs"></i>
+                                    <p>Kelola Portal</p>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse" id="portal">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>Master/rilis_jadwal">
+                                                <span class="sub-item">Rilis Jadwal</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>Master/info_sertif">
+                                                <span class="sub-item">Informasi Sertifikat</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>Master/galeri">
+                                                <span class="sub-item">Galeri Diklat</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo base_url(); ?>Master/alumni">
+                                                <span class="sub-item">Kata Alumni</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="nav-item">
                                 <a href="<?php echo base_url(); ?>Login/logout">
                                     <i class="fa fa-sign-out"></i>
@@ -277,8 +308,7 @@
         <!-- Azzara JS -->
         <script src="<?php echo base_url(); ?>assets/js/ready.min.js"></script>
 
-        <!-- Azzara DEMO methods, don't include it in your project! -->
-        <script src="<?php echo base_url(); ?>assets/js/setting-demo.js"></script>
+       
     </body>
 
 </html>

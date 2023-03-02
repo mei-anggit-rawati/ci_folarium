@@ -55,7 +55,7 @@
                                 </td>
                                 <td>
                                     <div class="form-button-action btn-group-horizontal">
-                                        <a class="btn btn-primary btn-xs" data-toggle="modal" href="#modal_edit"><i
+                                        <a class="btn btn-primary btn-xs" data-toggle="modal" href="#modal_edit" onclick="showform(<?php echo $tipe->id ?>)"><i
                                                 class="fa fa-pencil"></i>&nbsp;Edit</a>
                                         <button class="btn btn-danger btn-xs hapus_tipe"><i
                                                 class="fa fa-trash"></i>&nbsp;Hapus</button>
@@ -112,3 +112,71 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modal_edit">
+    <div class="modal-dialog modal-lg">
+        <div class=" modal-content">
+            <div class="modal-header">
+                <h4><span id='' style="text-transform: uppercase;"></span>EDIT TIPE DIKLAT</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" >
+            <form method="POST" id="edit-form" action="<?php echo base_url('Master/edit_tipe_diklat');?>">
+                    <div class="card-body">
+                    <input type="hidden" class="form-control" name="id" required>
+                        <div class="form-group">
+                            <label for="">Kode Diklat</label>
+                            <input type="text" class="form-control" name="tipe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Diklat</label>
+                            <input type="text" class="form-control" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Singkatan</label>
+                            <input type="text" class="form-control" name="singkat">
+                        </div>
+
+                    </div>
+                    <div class="card-action" align="center">
+                        <button type="submit" name="edit" id="" class="btn btn-success">
+                            <i class="fa fa-save"></i>&nbsp;
+                            Simpan
+                        </button>
+                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showform(id) {
+    var no = 1;
+    $.ajax({
+        type: "GET",
+        url: "<?php echo base_url() ?>Master/tipe_edit_form",
+        data: "id=" + id,
+        dataType: "json",
+        cache: false,
+        success: function(response) {
+            console.log(id);
+            //$('#detail_form').empty();
+            $.each(response, function(i, item) {
+
+                console.log(response);
+                $("#edit-form [name=\"id\"]").val(item.id);
+ 	            $("#edit-form [name=\"tipe\"]").val(item.tipe);
+ 	            $("#edit-form [name=\"nama\"]").val(item.nama);
+ 	            $("#edit-form [name=\"singkat\"]").val(item.singkat);
+            });
+        }
+    });
+}
+</script>
+
+

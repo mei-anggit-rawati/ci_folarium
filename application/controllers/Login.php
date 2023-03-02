@@ -43,6 +43,7 @@ function __construct(){
                     $session['nm_instansi'] = $x['nm_instansi'];
                     $session['nm_daerah'] = $x['nm_daerah'];
                     $session['nm_provinsi'] = $x['nm_provinsi'];
+                    $session['foto_profil'] = $x['foto_profil'];
 
                     $id=$x['id'];
                     if($x['level']=='1'){ // Super Admin

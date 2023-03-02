@@ -55,11 +55,16 @@
                             <div class="form-group">
                                 <label for="">Agama / Kepercayaan</label>
                                 <select class="form-control input-solid" id="selectFloatingLabel2" name="agama">
-                                    <option value="1">Islam</option>
-                                    <option value="2">Kristen</option>
-                                    <option value="3">Budha</option>
-                                    <option value="4">Hindu</option>
-                                    <option value="5">Konghucu</option>
+                                <?php
+                                    foreach (getAgama() as $agama => $key) {
+                                        if ($profil->agama == $agama) {
+                                            echo "<option value=\"$agama\" selected>". $key."</option>";  
+                                        } else {
+                                            echo "<option value=\"$agama\">". $key."</option>"; 
+                                        }
+                                              
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -72,8 +77,16 @@
                             <div class="form-group">
                                 <label for="">Jenis Kelamin</label>
                                 <select class="form-control input-solid" id="selectFloatingLabel2" name="jk">
-                                    <option value="1">Pria</option>
-                                    <option value="2">Perempuan</option>
+                                <?php
+                                    foreach (getJK() as $jk => $key) {
+                                        if ($profil->fsk_jk == $jk) {
+                                            echo "<option value=\"$jk\" selected>". $key."</option>";  
+                                        } else {
+                                            echo "<option value=\"$jk\">". $key."</option>"; 
+                                        }
+                                              
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -98,44 +111,7 @@
                                 <input type="text" class="form-control input-solid" placeholder="Golongan Darah"
                                     name="goldar">
                             </div>
-                            <div class="form-group">
-                                <label for="">Status Menikah</label>
-                                <select class="form-control input-solid" id="selectFloatingLabel2"
-                                    name="status_menikah">
-                                    <option value="1">Belum</option>
-                                    <option value="2">Sudah</option>
-                                    <option value="2">Cerai</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nama Istri/Suami</label>
-                                <input type="text" class="form-control input-solid" name="nama_sutri"
-                                    placeholder="Nama Istri/Suami">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Pekerjaan Istri/Suami</label>
-                                <input type="text" class="form-control input-solid" name="job_sutri"
-                                    placeholder="Pekerjaan Istri/Suami">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nama Ibu</label>
-                                <input type="text" class="form-control input-solid" name="nama_ibu"
-                                    placeholder="Nama Ibu">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Pekerjaan Ibu</label>
-                                <input type="text" class="form-control input-solid" name="job_ibu"
-                                    placeholder="Pekerjaan Ibu">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Jumlah Saudara / Anak</label>
-                                <input type="text" class="form-control input-solid" name="jml_sdr_ank"
-                                    placeholder="Jumlah Saudara / Anak">
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
+                            
                             <div class="form-group">
                                 <label for="">Nomor Telp/WA</label>
                                 <input type="text" class="form-control input-solid" name="no_telp"
@@ -145,17 +121,27 @@
                             <div class="form-group">
                                 <label for="">Pendidikan Terakhir</label>
                                 <select class="form-control input-solid" id="selectFloatingLabel2" name="pend_terakhir">
-                                    <option value="1">SD</option>
-                                    <option value="2">SMP</option>
-                                    <option value="3">SLTA</option>
-                                    <option value="4">Diploma</option>
-                                    <option value="5">Sarjaha</option>
+                                <?php
+                                    foreach (getPendidikan() as $pend => $key) {
+                                        if ($profil->pend_terakhir == $pend) {
+                                            echo "<option value=\"$pend\" selected>". $key."</option>";  
+                                        } else {
+                                            echo "<option value=\"$pend\">". $key."</option>"; 
+                                        }
+                                              
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="">Kursus</label>
                                 <input type="text" class="form-control input-solid" name="kursus" placeholder="Kursus">
                             </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            
                             <div class="form-group">
                                 <label for="">NIP</label>
                                 <input type="text" class="form-control input-solid" name="nip"
@@ -183,29 +169,45 @@
                                     placeholder="Alamat Instansi"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">Foto Terbaru</label>
-                                <input type="file" class="form-control input-solid" name="foto">
-                                <small id="" class="form-text " style="color:red">Maksimal 1MB</small>
+                                <label for="">Status Menikah</label>
+                                <select class="form-control input-solid" id="selectFloatingLabel2"
+                                    name="status_menikah">
+                                    <?php
+                                    foreach (getNikah() as $nikah => $key) {
+                                        if ($profil->status_nikah == $nikah) {
+                                            echo "<option value=\"$nikah\" selected>". $key."</option>";  
+                                        } else {
+                                            echo "<option value=\"$nikah\">". $key."</option>"; 
+                                        }
+                                              
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Scan KTP</label>
-                                <input type="file" class="form-control input-solid" name="ktp">
-                                <small id="" class="form-text " style="color:red">Maksimal 1MB</small>
+                                <label for="">Nama Istri/Suami</label>
+                                <input type="text" class="form-control input-solid" name="nama_sutri"
+                                    placeholder="Nama Istri/Suami">
                             </div>
                             <div class="form-group">
-                                <label for="">Scan Ijazah Asli</label>
-                                <input type="file" class="form-control input-solid" name="ijazah">
-                                <small id="" class="form-text " style="color:red">Maksimal 1MB</small>
+                                <label for="">Pekerjaan Istri/Suami</label>
+                                <input type="text" class="form-control input-solid" name="job_sutri"
+                                    placeholder="Pekerjaan Istri/Suami">
                             </div>
                             <div class="form-group">
-                                <label for="">Scan Transkip Asli</label>
-                                <input type="file" class="form-control input-solid" name="trankrip">
-                                <small id="" class="form-text " style="color:red">Maksimal 1MB</small>
+                                <label for="">Nama Ibu</label>
+                                <input type="text" class="form-control input-solid" name="nama_ibu"
+                                    placeholder="Nama Ibu">
                             </div>
                             <div class="form-group">
-                                <label for="">Scan Surat Pengantar</label>
-                                <input type="file" class="form-control input-solid" name="pengantar">
-                                <small id="" class="form-text " style="color:red">Maksimal 1MB</small>
+                                <label for="">Pekerjaan Ibu</label>
+                                <input type="text" class="form-control input-solid" name="job_ibu"
+                                    placeholder="Pekerjaan Ibu">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Jumlah Saudara / Anak</label>
+                                <input type="text" class="form-control input-solid" name="jml_sdr_ank"
+                                    placeholder="Jumlah Saudara / Anak">
                             </div>
                         </div>
                     </div>

@@ -126,7 +126,7 @@
                                             <tbody>
                                                 <?php
                                                 $no = 0;
-                                                foreach ($jadwal as $jadwal) :
+                                                foreach ($rilis_jadwal as $jadwal) :
                                                 $no++;
                                                 ?>
                                                 <tr>
@@ -142,7 +142,7 @@
                                                     <td align="center">
                                                         <div style="color:white"
                                                             class="form-button-action btn-group-horizontal">
-                                                            <a class="btn btn-success btn-xs">Lihat Jadwal</a>
+                                                            <a href="<?php echo base_url(); ?>uploads/jadwal/<?php echo $jadwal->file; ?>" target="_blank" class="btn btn-success btn-xs">Lihat Jadwal</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -217,112 +217,27 @@
                         <h3 class="section-title">Galeri Diklat</h3>
                     </header>
                     <div class="row portfolio-container">
+                    <?php
+                                                $no = 0;
+                                                foreach ($galeri as $galeri) :
+                                                $no++;
+                                                ?>
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
-                                <img src="<?php echo base_url(); ?>assets/utama/img/portfolio/satu.jpg"
+                                <img src="<?php echo base_url(); ?>uploads/galeri/<?php echo $galeri->file; ?>"
                                     class="img-fluid" alt="">
                                 <div class="portfolio-info">
-                                    <h4><a href="#">App 1</a></h4>
-                                    <p>App</p>
+                                <h4 style="color:red"><?php echo strtoupper($galeri->nama) ?></h4>
                                     <div>
-                                        <a href="<?php echo base_url(); ?>assets/utama/img/portfolio/app1.jpg"
-                                            data-lightbox="portfolio" data-title="App 1" class="link-preview"
+                                        <a href="<?php echo base_url(); ?>uploads/galeri/<?php echo $galeri->file; ?>"
+                                            data-lightbox="portfolio" data-title=<?php echo strtoupper($galeri->nama) ?>" class="link-preview"
                                             title="Preview"><i class="ion ion-eye"></i></a>
-                                        <a href="#" class="link-details" title="More Details"><i
-                                                class="ion ion-android-open"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-                            <div class="portfolio-wrap">
-                                <img src="<?php echo base_url(); ?>assets/utama/img/portfolio/dua.jpg" class="img-fluid"
-                                    alt="">
-                                <div class="portfolio-info">
-                                    <h4><a href="#">Web 3</a></h4>
-                                    <p>Web</p>
-                                    <div>
-                                        <a href="<?php echo base_url(); ?>assets/utama/img/portfolio/web3.jpg"
-                                            class="link-preview" data-lightbox="portfolio" data-title="Web 3"
-                                            title="Preview"><i class="ion ion-eye"></i></a>
-                                        <a href="#" class="link-details" title="More Details"><i
-                                                class="ion ion-android-open"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
-                            <div class="portfolio-wrap">
-                                <img src="<?php echo base_url(); ?>assets/utama/img/portfolio/tiga.jpg"
-                                    class="img-fluid" alt="">
-                                <div class="portfolio-info">
-                                    <h4><a href="#">App 2</a></h4>
-                                    <p>App</p>
-                                    <div>
-                                        <a href="img/portfolio/app2.jpg" class="link-preview" data-lightbox="portfolio"
-                                            data-title="App 2" title="Preview"><i class="ion ion-eye"></i></a>
-                                        <a href="#" class="link-details" title="More Details"><i
-                                                class="ion ion-android-open"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                            <div class="portfolio-wrap">
-                                <img src="<?php echo base_url(); ?>assets/utama/img/portfolio/empat.webp"
-                                    class="img-fluid" alt="">
-                                <div class="portfolio-info">
-                                    <h4><a href="#">Card 2</a></h4>
-                                    <p>Card</p>
-                                    <div>
-                                        <a href="img/portfolio/card2.jpg" class="link-preview" data-lightbox="portfolio"
-                                            data-title="Card 2" title="Preview"><i class="ion ion-eye"></i></a>
-                                        <a href="#" class="link-details" title="More Details"><i
-                                                class="ion ion-android-open"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-                            <div class="portfolio-wrap">
-                                <img src="<?php echo base_url(); ?>assets/utama/img/portfolio/lima.jpg"
-                                    class="img-fluid" alt="">
-                                <div class="portfolio-info">
-                                    <h4><a href="#">Web 2</a></h4>
-                                    <p>Web</p>
-                                    <div>
-                                        <a href="<?php echo base_url(); ?>assets/utama/img/portfolio/web2.jpg"
-                                            class="link-preview" data-lightbox="portfolio" data-title="Web 2"
-                                            title="Preview"><i class="ion ion-eye"></i></a>
-                                        <a href="#" class="link-details" title="More Details"><i
-                                                class="ion ion-android-open"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
-                            <div class="portfolio-wrap">
-                                <img src="<?php echo base_url(); ?>assets/utama/img/portfolio/enam.jpg"
-                                    class="img-fluid" alt="">
-                                <div class="portfolio-info">
-                                    <h4><a href="#">App 3</a></h4>
-                                    <p>App</p>
-                                    <div>
-                                        <a href="<?php echo base_url(); ?>assets/utama/img/portfolio/app3.jpg"
-                                            class="link-preview" data-lightbox="portfolio" data-title="App 3"
-                                            title="Preview"><i class="ion ion-eye"></i></a>
-                                        <a href="#" class="link-details" title="More Details"><i
-                                                class="ion ion-android-open"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
 
                     </div>
 
@@ -343,30 +258,22 @@
                         <div class="col-lg-8">
 
                             <div class="owl-carousel testimonials-carousel wow fadeInUp">
+                            <?php
+                                                $no = 0;
+                                                foreach ($alumni as $alumni) :
+                                                $no++;
+                                                ?>
 
                                 <div class="testimonial-item">
-                                    <img src="<?php echo base_url(); ?>assets/utama/img/testimonial-1.jpg"
+                                    <img src="<?php echo base_url(); ?>assets/img/avatar.png"
                                         class="testimonial-img" alt="">
-                                    <h3>Firman Gunawan</h3>
-                                    <h4>Diklat Pengemudi</h4>
+                                    <h3><?php echo strtoupper($alumni->alumni) ?></h3>
+                                    <h4><?php echo strtoupper($alumni->nama) ?></h4>
                                     <p>
-                                        Terimakasih PKTJ Kota Tegal yang telah menyelenggarakan diklat akhirnya saya
-                                        bisa mengendarai kendaraan umum.
+                                    <?php echo $alumni->note ?>
                                     </p>
                                 </div>
-
-                                <div class="testimonial-item">
-                                    <img src="<?php echo base_url(); ?>assets/utama/img/testimonial-4.jpg"
-                                        class="testimonial-img" alt="">
-                                    <h3>Bowo Sanjaya</h3>
-                                    <h4>Diklat Perparkiran</h4>
-                                    <p>
-                                        Berkat diklat perparkiran yang diselenggarakan oleh PKTJ Kota Tegal, saya bisa
-                                        mendapatkan ilmu baru dalam perparkiran. terimakasih!
-                                    </p>
-                                </div>
-
-
+                                <?php endforeach; ?>
 
                             </div>
 

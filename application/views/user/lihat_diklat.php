@@ -17,6 +17,16 @@
 
 <?php
 foreach ($lihat_diklat as $diklat) :
+    if ($diklat->status == 0) {
+        $status = '<span class="badge badge-count badge-default">Belum Mulai</span>';
+        $status_tombol = 'disabled';
+    } elseif ($diklat->status == 1) {
+        $status = '<span class="badge badge-count badge-success">Dalam Proses</span>';
+        $status_tombol = '';
+    } else {
+        $status = '<span class="badge badge-count badge-danger">Sudah Selesai</span>';
+        $status_tombol = 'disabled';
+    }
 endforeach; 
 ?>
 
@@ -24,14 +34,14 @@ endforeach;
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5><?php echo $diklat->nama_diklat; ?></h5>
+                <h5><?php echo $diklat->nama; ?></h5>
             </div>
             <div class="card-body">
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Nama Diklat :</label><br>
-                            <h5><?php echo $diklat->nama_diklat; ?></h5>
+                            <h5><?php echo $diklat->nama; ?></h5>
                         </div>
                         <div class="form-group form-group-default">
                             <label>Angkatan ke-</label>
@@ -50,16 +60,16 @@ endforeach;
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Waktu Pelaksanaan : </label><br>
-                            <h5><?php echo $diklat->mulai; ?> s/d <?php echo $diklat->sampai; ?></h5>
+                            <h5><?php echo tgl($diklat->mulai); ?> s/d <?php echo tgl($diklat->sampai); ?></h5>
                         </div>
                         <div class="form-group form-group-default">
                             <label>Tempat Pelaksanaan </label><br>
                             <h5><?php echo $diklat->tempat; ?></h5>
                         </div>
                         <div class="form-group form-group-default">
-                            <label>Jumlah Pendaftar / Kuota Pendaftaran : </label><br>
-                            <h5><?php echo 50; ?> / <?php echo 100; ?> orang</h5>
-                        </div>
+                                    <label>Status Diklat : </label><br>
+                                    <h5><?php echo $status; ?></h5>
+                                </div>
 
                     </div>
                 </div>
@@ -103,7 +113,7 @@ endforeach;
                 </div>
                 <div class="text-center mt-6 mb-6">
                 <button class="btn btn-default">Kembali</button>
-                <button class="btn btn-success daftar_diklat" data-diklatid="<?php echo $diklat->id ?>">Ikuti Diklat</button>
+                <button <?php echo $status_tombol ?> class="btn btn-success daftar_diklat" data-diklatid="<?php echo $diklat->id ?>">Ikuti Diklat</button>
                 </div>
             </div>
         </div>

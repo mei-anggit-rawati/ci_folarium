@@ -1,3 +1,6 @@
+<?php
+ini_set('display_errors', 0);
+?>
 <div class="page-header">
     <h4 class="page-title">Peserta Diklat</h4>
     <ul class="breadcrumbs">
@@ -23,8 +26,11 @@ endforeach; ?>
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5><?php echo $diklat->nama_diklat; ?></h5>
-            </div>
+                <h5><?php echo $diklat->nama_diklat; ?>
+                <a class="btn btn-success btn-sm ml-auto btn-sm mr-2" href="<?php echo base_url(); ?>Master/nilai_test?id=<?php echo $_GET['id']?>" target="_blank"><i
+                                                        class="fa fa-download"></i>&nbsp;Unduh Nilai Test</a>
+                                                        </h5>
+                                                    </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="basic-datatables" class="display table table-striped table-hover">

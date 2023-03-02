@@ -1,5 +1,18 @@
+<?php
+if ($_GET['exam'] == 1) {
+    $ujian = 'PRE-TEST';
+    $link = 'pre';
+} elseif ($_GET['exam'] == 2) {
+    $ujian = 'POST-TEST';
+    $link = 'post';
+} else {
+
+}
+?>
+
+
 <div class="page-header">
-    <h4 class="page-title">PRE-TEST</h4>
+    <h4 class="page-title"><?php echo $ujian; ?></h4>
 </div>
 
 <?php
@@ -96,7 +109,7 @@ if ($diklat->status == 0) {
                             </table>
                         </div>
                         <div class="text-center mt-6 mb-6">
-                        <a class="btn btn-success btn-round ml-auto mr-2" href="<?php echo base_url(); ?>User/mengerjakan?kdiklat=<?php echo $_GET['kdiklat']; ?>&tipe=<?php echo $_GET['tipe']; ?>&exam=<?php echo $_GET['exam']; ?>"><i
+                        <a class="btn btn-success btn-round ml-auto mr-2" href="<?php echo base_url(); ?>User/<?php echo $link ?>?kdiklat=<?php echo $_GET['kdiklat']; ?>&tipe=<?php echo $_GET['tipe']; ?>&exam=<?php echo $_GET['exam']; ?>"><i
                                                         class="fa fa-pencil"></i>&nbsp;Mulai Mengerjakan</a>
                 </div>
 

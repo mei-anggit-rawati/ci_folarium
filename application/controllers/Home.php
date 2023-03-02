@@ -7,12 +7,14 @@ function __construct(){
         parent::__construct();
         
 		$this->load->database();
-        $this->load->model('M_Home');
+        $this->load->model('M_Master');
     }
     
 	function index(){
         $data = [
-            'jadwal' => $this->M_Home->jadwal(),
+            'rilis_jadwal' => $this->M_Master->rilis_jadwal(),
+            'galeri' => $this->M_Master->galeri(),
+            'alumni' => $this->M_Master->alumni(),
         ];
         $this->load->view('home/home', $data);
     }

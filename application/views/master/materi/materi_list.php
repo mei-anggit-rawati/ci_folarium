@@ -38,6 +38,8 @@
                                         ?>
                                 </select>
                             </div>
+                            <a class="btn btn-primary btn-round ml-auto btn-sm mr-2" data-toggle="modal" href="#modal_tambah"><i
+                        class="fa fa-plus"></i>&nbsp;Tambah Mata Pelajaran</a>
 
                         </div>
                 </form>
@@ -88,11 +90,8 @@
                                                 class="fa fa-database"></i>&nbsp;Bank Soal</a>
                                     </div>
                                     <div class="form-button-action btn-group-horizontal">
-                                        <a class="btn btn-warning btn-xs" data-toggle="modal"
-                                            onclick="showuserdetail(<?php echo $materi->id ?>)"
-                                            href="#modal_userDetail"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
-                                        <button class="btn btn-danger btn-xs hapus_user"><i
-                                                class="fa fa-trash"></i>&nbsp;Hapus</button>
+                                        <a class="btn btn-warning btn-xs" data-toggle="modal" href="#modal_edit" onclick="showform(<?php echo $materi->id ?>)"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                                        <a href="<?php echo base_url(); ?>Master/hapus_materi?id=<?php echo $materi->id; ?>"class="btn btn-danger btn-xs" title="Hapus"><i class="fa fa-trash"></i>Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -104,3 +103,134 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modal_tambah">
+    <div class="modal-dialog modal-lg">
+        <div class=" modal-content">
+            <div class="modal-header">
+                <h3>Tambah Mata Pelajaran</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" id="">
+                <form method="POST" action="<?php echo base_url('Master/tambah_mapel_diklat');?>">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="">Kode Diklat</label>
+                            <select class="js-states form-control" name="tipe" id="tipe" required>
+                            <option value="">-- PILIH DIKLAT --</option>
+                            <?php
+                                        foreach ($diklat2 as $diklat2) {
+                                                echo "<option value=\"$diklat2->tipe\">". strtoupper($diklat2->nama)."</option>"; 
+                               
+                                        }
+                                        ?>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Mata Pelajaran</label>
+                            <textarea type="text" class="form-control" name="nama" placeholder="Nama Mata Pelajaran"
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jumlah Teori</label>
+                            <input type="number" class="form-control" name="teori" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jumlah Praktek</label>
+                            <input type="number" class="form-control" name="praktek" placeholder="0">
+                        </div>
+
+                    </div>
+                    <div class="card-action" align="center">
+                        <button type="submit" name="publish" id="tambah_materi" class="btn btn-success">
+                            <i class="fa fa-save"></i>&nbsp;
+                            Simpan
+                        </button>
+                        <button class="btn btn-default">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_edit">
+    <div class="modal-dialog modal-lg">
+        <div class=" modal-content">
+            <div class="modal-header">
+                <h4><span id='' style="text-transform: uppercase;"></span>EDIT MATA PELAJARAN</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" >
+            <form method="POST" id="edit-form" action="<?php echo base_url('Master/edit_materi');?>">
+                    <div class="card-body">
+                    <input type="hidden" class="form-control" name="id" required>
+                    <div class="form-group">
+                            <label for="">Kode Diklat</label>
+                            <select class="js-states form-control" name="tipe" id="tipe" required>
+                            <option value="">-- PILIH DIKLAT --</option>
+                            <?php
+                                        foreach ($diklat3 as $diklat3) {
+                                                echo "<option value=\"$diklat3->tipe\">". strtoupper($diklat3->nama)."</option>"; 
+                               
+                                        }
+                                        ?>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Mata Pelajaran</label>
+                            <input type="text" class="form-control" name="mapel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Teori</label>
+                            <input type="text" class="form-control" name="teori">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Praktek</label>
+                            <input type="text" class="form-control" name="praktek">
+                        </div>
+                    </div>
+                    <div class="card-action" align="center">
+                        <button type="submit" name="edit" id="" class="btn btn-success">
+                            <i class="fa fa-save"></i>&nbsp;
+                            Simpan
+                        </button>
+                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function showform(id) {
+    var no = 1;
+    $.ajax({
+        type: "GET",
+        url: "<?php echo base_url() ?>Master/materi_detail",
+        data: "id=" + id,
+        dataType: "json",
+        cache: false,
+        success: function(response) {
+            console.log(id);
+            //$('#detail_form').empty();
+            $.each(response, function(i, item) {
+
+                $("#edit-form [name=\"id\"]").val(item.id);
+ 	            $("#edit-form [name=\"tipe\"]").val(item.tipe);
+ 	            $("#edit-form [name=\"mapel\"]").val(item.mapel);
+ 	            $("#edit-form [name=\"teori\"]").val(item.teori);
+                 $("#edit-form [name=\"praktek\"]").val(item.praktek);
+            });
+        }
+    });
+}
+</script>
