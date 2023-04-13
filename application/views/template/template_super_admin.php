@@ -7,7 +7,7 @@
             <?php echo SITE_NAME . ': ' . ucfirst($this->uri->segment(1)) . ' - ' . ucfirst($this->uri->segment(2)); ?>
         </title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-        <link rel="icon" href="<?php echo base_url('assets/img/pktj.png'); ?>" type="image/x-icon" />
+        <link href="<?php echo base_url(); ?>assets/img/logo.png" rel="icon">
         <script src="<?php echo base_url('assets/js/plugin/webfont/webfont.min.js'); ?>"></script>
         <script>
         WebFont.load({
@@ -36,8 +36,8 @@
         <div class="wrapper">
             <div class="main-header" data-background-color="blue">
                 <div class="logo-header">
-                    <a href="index.html" class="logo">
-                        <h3 style="color:white; font-weight:bold; padding-top:15px">PKTJ TEGAL</h3>
+                    <a href="<?php echo base_url(); ?>Master" class="logo">
+                        <h3 style="color:white; font-weight:bold; padding-top:15px">FOLARIUM</h3>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
                         data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,26 +62,21 @@
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..."
-                                            class="avatar-img rounded-circle">
+                                        <img src="<?php echo base_url(); ?>assets/img/logo.png" 
+                                            class="avatar-img">
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
                                     <li>
                                         <div class="user-box">
                                             <div class="avatar-lg"><img
-                                                    src="<?php echo base_url(); ?>assets/img/avatar.png"
-                                                    alt="image profile" class="avatar-img rounded"></div>
+                                                    src="<?php echo base_url(); ?>assets/img/logo.png"
+                                                    alt="image profile" class="avatar-img"></div>
                                             <div class="u-text">
-                                                <h4><?php echo $_SESSION['nama'] ?></h4>
+                                                <h4>Sistem Kepegawaian</h4>
                                                 <p class="text-muted">Super Admin</p>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="<?php echo base_url(); ?>Login/logout"><i
-                                                class="fa fa-sign-out"></i>Logout</a>
                                     </li>
                                 </ul>
                             </li>
@@ -97,33 +92,18 @@
                     <div class="sidebar-content">
                         <div class="user">
                             <div class="avatar-sm float-left mr-2">
-                                <img src="<?php echo base_url(); ?>assets/img/avatar.png" alt="..."
-                                    class="avatar-img rounded-circle">
+                                <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="..."
+                                    class="avatar-img">
                             </div>
                             <div class="info">
                                 <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                     <span>
-                                        <?php echo $_SESSION['nama'] ?>
+                                        Sistem Kepegawaian
                                         <span class="user-level">Super Admin</span>
                                         <span class="caret"></span>
                                     </span>
                                 </a>
                                 <div class="clearfix"></div>
-
-                                <div class="collapse in" id="collapseExample">
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="#profile">
-                                                <span class="link-collapse">My Profile</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#edit">
-                                                <span class="link-collapse">Edit Profile</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <ul class="nav">
@@ -134,119 +114,34 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="<?php echo base_url(); ?>Master/pegawai">
+                                    <i class="fa fa-users"></i>
+                                    <p>Master Pegawai</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a data-toggle="collapse" href="#master">
-                                    <i class="fa fa-database"></i>
-                                    <p>Master Data</p>
+                                    <i class="fa fa-building"></i>
+                                    <p>Pengaturan</p>
                                     <span class="caret"></span>
                                 </a>
                                 <div class="collapse" id="master">
                                     <ul class="nav nav-collapse">
                                         <li>
                                             <a
-                                                href="<?php echo base_url(); ?>Master/diklat?tahun=<?php echo date('Y')?>">
-                                                <span class="sub-item">Diklat</span>
+                                                href="<?php echo base_url(); ?>Master/jabatan">
+                                                <span class="sub-item">Jabatan</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="<?php echo base_url(); ?>Master/dosen">
-                                                <span class="sub-item">Dosen</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/materi?diklat=00">
-                                                <span class="sub-item">Materi</span>
+                                            <a href="<?php echo base_url(); ?>Master/kontrak">
+                                                <span class="sub-item">Kontrak</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a data-toggle="collapse" href="#dukungan">
-                                    <i class="fa fa-bookmark"></i>
-                                    <p>Data Pendukung</p>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="dukungan">
-                                    <ul class="nav nav-collapse">
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/wilayah">
-                                                <span class="sub-item">Wilayah</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/instansi">
-                                                <span class="sub-item">Instansi</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="<?php echo base_url(); ?>Master/umana">
-                                    <i class="fa fa-user"></i>
-                                    <p>User Management</p>
-                                </a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                <a data-toggle="collapse" href="#base">
-                                    <i class="fa fa-cogs"></i>
-                                    <p>Settings</p>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="base">
-                                    <ul class="nav nav-collapse">
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/hak_akses">
-                                                <span class="sub-item">Hak Akses</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/umana">
-                                                <span class="sub-item">User Management</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </li> -->
-                            <li class="nav-item">
-                                <a data-toggle="collapse" href="#portal">
-                                    <i class="fa fa-cogs"></i>
-                                    <p>Kelola Portal</p>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="portal">
-                                    <ul class="nav nav-collapse">
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/rilis_jadwal">
-                                                <span class="sub-item">Rilis Jadwal</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/info_sertif">
-                                                <span class="sub-item">Informasi Sertifikat</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/galeri">
-                                                <span class="sub-item">Galeri Diklat</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url(); ?>Master/alumni">
-                                                <span class="sub-item">Kata Alumni</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo base_url(); ?>Login/logout">
-                                    <i class="fa fa-sign-out"></i>
-                                    <p>Logout</p>
-                                </a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -378,9 +273,9 @@ $(document).ready(function() {
 <script>
 var SweetAlert2Demo = function() {
 
-    $('#tambah_user').click(function(e) {
+    $('#tambah_sejarah').click(function(e) {
         swal({
-            title: 'Berhasil Tambah User!',
+            title: 'Berhasil Tambah Sejarah!',
             icon: "success",
             timer: 20000,
             buttons: {
@@ -390,9 +285,9 @@ var SweetAlert2Demo = function() {
             },
         });
     });
-    $('#edit_user').click(function(e) {
+    $('#update_sejarah').click(function(e) {
         swal({
-            title: 'Berhasil Edit User!',
+            title: 'Berhasil Edit Sejarah!',
             icon: "success",
             timer: 20000,
             buttons: {
@@ -402,6 +297,188 @@ var SweetAlert2Demo = function() {
             },
         });
     });
+    $('#tambah_visi_misi').click(function(e) {
+        swal({
+            title: 'Berhasil Tambah Visi & Misi!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#update_visi_misi').click(function(e) {
+        swal({
+            title: 'Berhasil Edit Visi & Misi!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#tambah_struktur').click(function(e) {
+        swal({
+            title: 'Berhasil Tambah Struktur Organisasi!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#update_struktur').click(function(e) {
+        swal({
+            title: 'Berhasil Edit Struktur Organisasi!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#tambah_kegiatan').click(function(e) {
+        swal({
+            title: 'Berhasil Tambah Berita Kegiatan!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#update_kegiatan').click(function(e) {
+        swal({
+            title: 'Berhasil Edit Berita Kegiatan!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+
+    $('.hapus_kegiatan').on('click', function(e) {
+        var dataId = $(this).parents("tr").attr("id");
+
+        swal({
+            title: 'Yakin hapus data Berita Kegiatan ini?',
+            text: "Anda tidak akan dapat mengembalikan aksi ini!",
+            type: 'warning',
+            buttons: {
+                cancel: {
+                    visible: true,
+                    className: 'btn btn-default'
+                },
+                confirm: {
+                    text: 'Ya, Hapus!',
+                    className: 'btn btn-danger'
+                },
+            }
+        }).then((Delete) => {
+            if (Delete) {
+                $(location).attr('href', '<?php echo base_url() ?>Master/hapus_kegiatan?id=' +
+                dataId);
+                swal({
+                    title: 'Sukses Hapus Data Berita Kegiatan!',
+                    text: 'Data Berita Kegiatan sudah terhapus.',
+                    type: 'success',
+                    icon: "success",
+                    buttons: false,
+                    timer: 20000,
+                });
+
+            } else {
+                swal.close();
+            }
+        });
+    });
+    $('#update_kontak').click(function(e) {
+        swal({
+            title: 'Berhasil Edit Informasi Kontak!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#tambah_link').click(function(e) {
+        swal({
+            title: 'Berhasil Tambah Link Terkait!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+    $('#update_link').click(function(e) {
+        swal({
+            title: 'Berhasil Edit Link Terkait!',
+            icon: "success",
+            timer: 20000,
+            buttons: {
+                confirm: {
+                    className: 'btn btn-success'
+                }
+            },
+        });
+    });
+
+    $('.hapus_link').on('click', function(e) {
+        var dataId = $(this).parents("tr").attr("id");
+
+        swal({
+            title: 'Yakin hapus Link Terkait ini?',
+            text: "Anda tidak akan dapat mengembalikan aksi ini!",
+            type: 'warning',
+            buttons: {
+                cancel: {
+                    visible: true,
+                    className: 'btn btn-default'
+                },
+                confirm: {
+                    text: 'Ya, Hapus!',
+                    className: 'btn btn-danger'
+                },
+            }
+        }).then((Delete) => {
+            if (Delete) {
+                $(location).attr('href', '<?php echo base_url() ?>Master/hapus_link?id=' +
+                dataId);
+                swal({
+                    title: 'Sukses Hapus Link Terkait!',
+                    text: 'Link Terkait sudah terhapus.',
+                    type: 'success',
+                    icon: "success",
+                    buttons: false,
+                    timer: 20000,
+                });
+
+            } else {
+                swal.close();
+            }
+        });
+    });
+
+
 
     $('#tambah_tipe').click(function(e) {
         swal({

@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('session', 'form_validation', 'database');
+$autoload['libraries'] = array('session', 'form_validation', 'database', 'curl');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form', 'library', 'html', 'utility', 'helperku', 'date');
+$autoload['helper'] = array('url', 'form', 'html', 'helperku', 'date');
 
 /*
 | -------------------------------------------------------------------
@@ -134,5 +134,5 @@ $autoload['language'] = array();
 */
 $autoload['model'] = array();
 
-define('SITE_NAME', 'DIKLAT PKTJ');
+define('SITE_NAME', 'SISTEM KEPEGAWAIAN');
 $autoload['time_zone'] = date_default_timezone_set('Asia/Jakarta'); 
